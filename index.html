@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="ru">
+<html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta
@@ -9,9 +9,9 @@
     <meta name="theme-color" content="#302936" />
     <meta
       name="description"
-      content="Соль и камень — короткое восхождение над вечерним морем."
+      content="Salt and Stone: a short climb above the evening sea."
     />
-    <title>Соль и камень</title>
+    <title>Salt and Stone</title>
     <link
       rel="icon"
       href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%233c3039'/%3E%3Cpath d='M12 49 23 17 34 28 43 11 55 49Z' fill='%23edbc9c'/%3E%3C/svg%3E"
@@ -19,29 +19,27 @@
     <link rel="stylesheet" href="./src/style.css" />
   </head>
   <body>
-    <main id="game" aria-label="Соль и камень, игра про скалолаза">
+    <main id="game" aria-label="Salt and Stone, a climbing game">
       <canvas
         id="scene"
-        aria-label="Скалы над морем. Коснитесь зацепа в кольце и подтвердите движение кнопкой внизу."
+        aria-label="Cliffs above the sea. Tap a hold in a ring and confirm the move with the button below."
       ></canvas>
-      <div id="targets" aria-label="Следующие зацепы" hidden></div>
+      <div id="targets" aria-label="Next holds" hidden></div>
       <header>
         <div class="brand">
           <svg viewBox="0 0 32 28" aria-hidden="true">
             <path d="M2 24 10 5 17 16 23 2 30 24M7 24l5-9 4 9" /></svg
-          ><span
-            >СОЛЬ И КАМЕНЬ<small id="chapter">ВЕЧЕРНЕЕ ВОСХОЖДЕНИЕ</small></span
-          >
+          ><span>SALT AND STONE<small id="chapter">EVENING CLIMB</small></span>
         </div>
-        <button id="pause" class="icon" aria-label="Пауза" hidden>Ⅱ</button>
+        <button id="pause" class="icon" aria-label="Pause" hidden>Ⅱ</button>
       </header>
       <div id="hud" hidden>
         <div class="altitude">
-          <b id="height">18</b><span>м над морем</span>
+          <b id="height">18</b><span>m above the sea</span>
         </div>
         <div class="energy">
           <div>
-            <span id="energy-label">СИЛЫ</span><b id="energy-number">100</b>
+            <span id="energy-label">STRENGTH</span><b id="energy-number">100</b>
           </div>
           <div class="energy-track">
             <i id="energy-fill"></i><i id="energy-cost"></i>
@@ -50,43 +48,42 @@
       </div>
       <div id="toast" role="status" aria-live="polite"></div>
       <section id="intro" class="sheet intro">
-        <span class="eyebrow">ДВЕ СКАЛЫ · ОДИН ПУТЬ</span>
-        <h1>Между морем<br />и небом.</h1>
-        <p>Коснись зацепа в кольце.<br />Подтверди движение кнопкой внизу.</p>
+        <span class="eyebrow">TWO TOWERS · ONE ROUTE</span>
+        <h1>Between the sea<br />and the sky.</h1>
+        <p>
+          Tap a hold in a ring.<br />Confirm the move with the button below.
+        </p>
         <button id="start" class="primary">
-          Начать восхождение <span>↗</span>
+          Start climbing <span>↗</span>
         </button>
         <div class="intro-foot">
-          <span>3–5 минут</span><span>Одним пальцем</span
-          ><span>Без спешки</span>
+          <span>3–5 minutes</span><span>One finger</span><span>No rush</span>
         </div>
       </section>
       <div id="controls" hidden>
         <div id="feedback">
           <div id="action" role="status">
-            <strong id="action-title">Найди следующий хват</strong
-            ><span id="action-detail">Коснись зацепа в кольце</span>
+            <strong id="action-title">Find the next hold</strong
+            ><span id="action-detail">Tap a hold in a ring</span>
           </div>
           <div class="charge"><i id="charge-fill"></i></div>
         </div>
-        <button id="confirm-move" class="primary" disabled>Выбери зацеп</button>
+        <button id="confirm-move" class="primary" disabled>Pick a hold</button>
         <button id="clear-selection" class="secondary" disabled>
-          Снять выбор
+          Clear selection
         </button>
       </div>
       <section id="modal" class="modal" hidden>
         <div class="modal-inner">
-          <span class="eyebrow" id="modal-kicker">ПЕРЕДЫШКА</span>
-          <h2 id="modal-title">Море подождёт.</h2>
-          <p id="modal-text">Подъём на паузе.</p>
-          <button class="primary" id="resume">Продолжить ↗</button
-          ><button class="secondary" id="restart">С последнего уступа</button
-          ><button class="secondary" id="sound">Звук: выключен</button>
+          <span class="eyebrow" id="modal-kicker">BREATHER</span>
+          <h2 id="modal-title">The sea can wait.</h2>
+          <p id="modal-text">The climb is paused.</p>
+          <button class="primary" id="resume">Continue ↗</button
+          ><button class="secondary" id="restart">From the last ledge</button
+          ><button class="secondary" id="sound">Sound: off</button>
         </div>
       </section>
-      <div id="orientation">
-        Для подъёма удобнее повернуть телефон вертикально
-      </div>
+      <div id="orientation">Turn your phone upright to climb</div>
     </main>
     <script type="module" src="./src/main.js"></script>
   </body>

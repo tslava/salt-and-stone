@@ -5,32 +5,32 @@ export const REACH = 62,
   MAX_RANGE = 148;
 // Hand anchors. Every node owns a real hand lip and two foot chips, drawn by the renderer.
 export const holds = [
-  { id: "s", x: 112, y: 100, rest: true, label: "Нижний уступ" },
+  { id: "s", x: 112, y: 100, rest: true, label: "Lower ledge" },
   { id: "a", x: 121, y: 147 },
   { id: "b", x: 169, y: 167 },
   { id: "c", x: 266, y: 223 },
-  { id: "r1", x: 287, y: 270, rest: true, label: "Тёплый карниз" },
+  { id: "r1", x: 287, y: 270, rest: true, label: "Warm cornice" },
   { id: "d", x: 239, y: 294 },
   { id: "e", x: 202, y: 341 },
-  { id: "r2", x: 146, y: 355, rest: true, label: "Сосновый балкон" },
+  { id: "r2", x: 146, y: 355, rest: true, label: "Pine balcony" },
   { id: "f", x: 139, y: 405 },
   { id: "g", x: 192, y: 449 },
   { id: "h", x: 248, y: 439 },
   { id: "i", x: 278, y: 489 },
-  { id: "r3", x: 265, y: 544, rest: true, label: "Перед проливом" },
+  { id: "r3", x: 265, y: 544, rest: true, label: "Before the gap" },
   { id: "j", x: 275, y: 593 },
-  { id: "r4", x: 390, y: 621, rest: true, label: "Ветряная игла" },
+  { id: "r4", x: 390, y: 621, rest: true, label: "Wind Needle" },
   { id: "k", x: 416, y: 668 },
   { id: "l", x: 369, y: 703 },
   { id: "m", x: 424, y: 779 },
-  { id: "r5", x: 386, y: 816, rest: true, label: "Укрытие от ветра" },
+  { id: "r5", x: 386, y: 816, rest: true, label: "Wind shelter" },
   { id: "n", x: 430, y: 857 },
   { id: "o", x: 538, y: 895 },
   { id: "z", x: 466, y: 903 },
-  { id: "r6", x: 586, y: 865, rest: true, label: "Тихая ниша" },
+  { id: "r6", x: 586, y: 865, rest: true, label: "Quiet niche" },
   { id: "p", x: 615, y: 918 },
   { id: "q", x: 564, y: 966 },
-  { id: "r7", x: 608, y: 1005, rest: true, label: "Последняя передышка" },
+  { id: "r7", x: 608, y: 1005, rest: true, label: "Last breather" },
   { id: "v", x: 549, y: 1053 },
   {
     id: "summit",
@@ -38,12 +38,12 @@ export const holds = [
     y: 1108,
     rest: true,
     final: true,
-    label: "Последний свет",
+    label: "Last light",
   },
 ];
 export const obstacles = [
-  { id: "cleft", x: 222, y: 141, w: 16, h: 18, label: "Выступ на пути" },
-  { id: "overhang", x: 484, y: 834, w: 18, h: 17, label: "Нависающий скол" },
+  { id: "cleft", x: 222, y: 141, w: 16, h: 18, label: "Ledge in the way" },
+  { id: "overhang", x: 484, y: 834, w: 18, h: 17, label: "Overhanging flake" },
 ];
 const collisionCache = new Map();
 export function blocked(a, b, jump) {
@@ -93,13 +93,13 @@ export function plan(from, to, held, stamina, retreat = false) {
   const obstruction = blocked(from, to, jump);
   const reason =
     d > MAX_RANGE
-      ? "Слишком далеко"
+      ? "Too far"
       : obstruction
-        ? "Скала на пути"
+        ? "Rock in the way"
         : held < required
-          ? "Готовь прыжок"
+          ? "Charge the jump"
           : stamina < cost
-            ? "Не хватает сил"
+            ? "Not enough strength"
             : null;
   return {
     from: from.id,

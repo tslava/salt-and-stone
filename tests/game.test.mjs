@@ -158,14 +158,14 @@ test("exhaustion falls and respawns at last ledge", () => {
   assert.equal(g.energy, 100);
 });
 test("insufficient charge and stamina are shown and reject movement", () => {
-  assert.equal(plan(holds[2], holds[3], 0.1, 100).reason, "Готовь прыжок");
-  assert.equal(plan(holds[2], holds[3], 1, 10).reason, "Не хватает сил");
+  assert.equal(plan(holds[2], holds[3], 0.1, 100).reason, "Charge the jump");
+  assert.equal(plan(holds[2], holds[3], 1, 10).reason, "Not enough strength");
   const g = new Game();
   g.start();
   g.energy = 1;
   g.begin(100, 600);
   tick(g, 0.2);
-  assert.equal(g.gesture.preview.reason, "Не хватает сил");
+  assert.equal(g.gesture.preview.reason, "Not enough strength");
   g.release();
   assert.equal(g.moves, 0);
 });
@@ -247,7 +247,7 @@ test("preview explicitly warns about a physical overhang", () => {
     b = holdById("z");
   const p = plan(a, b, 1, 100);
   assert.equal(p.ready, false);
-  assert.equal(p.reason, "Скала на пути");
+  assert.equal(p.reason, "Rock in the way");
   assert.equal(p.obstacle, "overhang");
 });
 test("every hand lip and every resting foot platform is attached to a cliff", async () => {
@@ -457,7 +457,7 @@ test("reserve cannot pay for a new forward move or refill stamina by retracing a
   g.aim(228, 680);
   tick(g, 0.5);
   assert.equal(g.gesture.preview.retreat, false);
-  assert.equal(g.gesture.preview.reason, "Не хватает сил");
+  assert.equal(g.gesture.preview.reason, "Not enough strength");
   g.release();
   assert.equal(g.current.id, "a");
 });

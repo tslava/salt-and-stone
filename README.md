@@ -2,11 +2,11 @@
 
 **A small browser climbing game: two sandstone towers above the sea, one hand-built route to the top.** Tap a hold, see the trajectory, then commit to a reach, a jump or a step back, and spend your strength wisely. Made for phones in portrait mode.
 
-**[▶ Play in the browser](https://tslava.github.io/salt-and-stone/)** · the interface is in Russian for now · [Русская версия README](README.ru.md)
+**[▶ Play in the browser](https://tslava.github.io/salt-and-stone/)** · [Русская версия README](README.ru.md)
 
 <p>
-  <img src="docs/screenshots/climb.png" alt="The climber on the first tower, with holds, stamina and height above the sea" width="300">
-  <img src="docs/screenshots/summit.png" alt="The climber on the summit" width="300">
+  <img src="docs/screenshots/climb.png" alt="A jump selected on the first tower: trajectory, strength cost and the confirm button" width="300">
+  <img src="docs/screenshots/summit.png" alt="The end screen after reaching the summit" width="300">
 </p>
 
 - **Hand-designed route**, no level generator: a cautious line (26 moves, 7 jumps) and a direct one (21 moves, 7 jumps), both verified without falls.

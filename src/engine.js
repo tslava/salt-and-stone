@@ -38,7 +38,7 @@ export class Game {
     return holds.filter((h) => {
       if (h.id === this.current.id) return false;
       const p = this.previewFor(h, Infinity);
-      return p.reason !== "Слишком далеко" && !p.obstacle;
+      return p.reason !== "Too far" && !p.obstacle;
     });
   }
   get selectionPreview() {

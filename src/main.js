@@ -38,16 +38,16 @@ function showModal(kind = "pause") {
   const complete = kind === "complete";
   $("modal").hidden = false;
   $("modal-kicker").textContent = complete
-    ? "ПОСЛЕДНИЙ СВЕТ · 02 / 02"
-    : "ПЕРЕДЫШКА";
+    ? "LAST LIGHT · 02 / 02"
+    : "BREATHER";
   $("modal-title").innerHTML = complete
-    ? "Выше —<br>только небо."
-    : "Море подождёт.";
+    ? "Above you,<br>only the sky."
+    : "The sea can wait.";
   $("modal-text").textContent = complete
-    ? `Обе скалы позади. ${game.moves} движений, ${game.jumpCount} прыжков. ${game.deaths === 0 ? "Без единого падения." : `Падений: ${game.deaths}.`} Побудь здесь немного.`
-    : "Продолжи с того же движения или вернись на последний уступ.";
-  $("resume").textContent = complete ? "Посмотреть на море" : "Продолжить ↗";
-  $("restart").textContent = complete ? "Пройти заново" : "С последнего уступа";
+    ? `Both towers behind you. ${game.moves} ${game.moves === 1 ? "move" : "moves"}, ${game.jumpCount} ${game.jumpCount === 1 ? "jump" : "jumps"}. ${game.deaths === 0 ? "Not a single fall." : `Falls: ${game.deaths}.`} Stay here a while.`
+    : "Continue from the same move or go back to the last ledge.";
+  $("resume").textContent = complete ? "Look at the sea" : "Continue ↗";
+  $("restart").textContent = complete ? "Climb again" : "From the last ledge";
 }
 $("start").onclick = () => {
   game.start();
@@ -67,7 +67,7 @@ $("resume").onclick = () => {
   if (game.state === "complete") {
     $("controls").hidden = true;
     $("feedback").hidden = true;
-    toast("Вершина. Тишина. Море.");
+    toast("Summit. Silence. Sea.");
   } else game.resume();
 };
 $("restart").onclick = () => {
@@ -80,7 +80,7 @@ $("restart").onclick = () => {
 };
 $("sound").onclick = () => {
   sound = !sound;
-  $("sound").textContent = `Звук: ${sound ? "включён" : "выключен"}`;
+  $("sound").textContent = `Sound: ${sound ? "on" : "off"}`;
   tone(480);
 };
 $("confirm-move").onclick = () => game.confirm();
@@ -119,12 +119,12 @@ function updateTargets() {
     button.setAttribute("aria-pressed", String(game.selected === h.id));
     button.setAttribute(
       "aria-label",
-      (h.label || "Зацеп " + h.id) +
+      (h.label || "Hold " + h.id) +
         ": " +
         (plan.retreat
-          ? "отход, резерв"
-          : (plan.jump ? "прыжок" : "перехват") + ", " + plan.cost + " сил") +
-        (plan.ready ? "" : ", не хватает сил"),
+          ? "step back, reserve"
+          : (plan.jump ? "jump" : "reach") + ", " + plan.cost + " strength") +
+        (plan.ready ? "" : ", not enough strength"),
     );
     button.disabled = game.state !== "idle";
     button.dataset.affordable = String(plan.ready);
@@ -157,51 +157,51 @@ function ui(dt) {
   $("toast").style.opacity = toastTimer > 0 ? 1 : 0;
   $("chapter").textContent = game.started
     ? game.stage === 1
-      ? "01 / 02 · ТЁПЛАЯ СТЕНА"
-      : "02 / 02 · ВЕТРЯНАЯ ИГЛА"
-    : "ВЕЧЕРНЕЕ ВОСХОЖДЕНИЕ";
+      ? "01 / 02 · WARM WALL"
+      : "02 / 02 · WIND NEEDLE"
+    : "EVENING CLIMB";
   $("height").textContent = Math.round(18 + (game.current.y - 100) * 0.16);
   $("energy-number").textContent = Math.ceil(game.energy);
   $("energy-fill").style.width = `${game.energy}%`;
   $("energy-fill").style.background = game.energy < 25 ? "#e4937a" : "#f0cfab";
   $("energy-label").textContent =
-    game.current.rest && game.state === "idle" ? "ОТДЫХ" : "СИЛЫ";
+    game.current.rest && game.state === "idle" ? "REST" : "STRENGTH";
   const p = game.selectionPreview,
     preparing = game.state === "preparing";
-  let title = "Коснись зацепа в кольце",
-    detail = "Затем нажми кнопку движения",
-    label = "Выбери зацеп";
+  let title = "Tap a hold in a ring",
+    detail = "Then press the move button",
+    label = "Pick a hold";
   if (preparing) {
-    title = "Готовимся к прыжку";
-    detail = "Прыжок начнётся автоматически";
-    label = "Подготовка…";
+    title = "Getting ready to jump";
+    detail = "The jump starts automatically";
+    label = "Getting ready…";
   } else if (p) {
-    title = p.ready ? "Цель выбрана" : p.reason;
+    title = p.ready ? "Target selected" : p.reason;
     detail = p.retreat
-      ? "Назад к отдыху · основные силы не расходуются"
+      ? "Back to rest · main strength is not spent"
       : p.ready
-        ? "Коснись другой опоры, чтобы изменить цель"
-        : "Выбери опору назад — на отход есть резерв";
+        ? "Tap another hold to change the target"
+        : "Pick a hold behind you: a step back uses the reserve";
     label =
       (p.retreat
         ? p.jump
-          ? "Прыжок назад"
-          : "Отход"
+          ? "Jump back"
+          : "Step back"
         : p.jump
-          ? "Прыжок"
-          : "Перехват") +
+          ? "Jump"
+          : "Reach") +
       " · " +
-      (p.retreat ? "резерв" : "−" + p.cost + " сил");
+      (p.retreat ? "reserve" : "−" + p.cost + " strength");
   } else if (game.state === "move") {
-    title = game.move.jump ? "Прыжок" : "Перехват";
-    detail = "Следующий зацеп — после приземления";
-    label = "Движение…";
+    title = game.move.jump ? "Jump" : "Reach";
+    detail = "Next hold after landing";
+    label = "Moving…";
   } else if (game.state === "falling") {
-    title = "Силы закончились";
-    detail = "Возвращаемся на последний уступ";
-    label = "Возвращаемся…";
+    title = "Out of strength";
+    detail = "Back to the last ledge";
+    label = "Going back…";
   } else if (game.current.rest && game.energy < 99) {
-    detail = "Силы восстанавливаются · можно выбирать дальше";
+    detail = "Strength recovering · pick the next hold";
   }
   $("feedback").dataset.tone = p && !p.ready ? "warning" : "normal";
   $("action-title").textContent = title;
@@ -211,8 +211,8 @@ function ui(dt) {
     !p?.ready || game.state !== "idle" || game.paused;
   $("clear-selection").disabled = !game.selected;
   $("clear-selection").textContent = preparing
-    ? "Отменить прыжок"
-    : "Снять выбор";
+    ? "Cancel jump"
+    : "Clear selection";
   $("charge-fill").parentElement.style.visibility = preparing
     ? "visible"
     : "hidden";
@@ -231,9 +231,7 @@ function ui(dt) {
     if (e.type === "pause") showModal();
 
     if (e.type === "stage")
-      toast(
-        e.stage === 2 ? "02 / 02 · ВЕТРЯНАЯ ИГЛА" : "01 / 02 · ТЁПЛАЯ СТЕНА",
-      );
+      toast(e.stage === 2 ? "02 / 02 · WIND NEEDLE" : "01 / 02 · WARM WALL");
     if (e.type === "complete") showModal("complete");
     if (e.type === "rejected") toast(e.reason);
     if (e.type === "fall") tone(95, 0.5);
