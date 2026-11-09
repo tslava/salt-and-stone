@@ -43,4 +43,4 @@ The rock is modelled on the sandstone of Saxon Switzerland (Schrammsteine). A ph
 
 ---
 
-Built by [Wiaczeslaw Cyunczyk](https://cyunczyk.dev)
+Built by [Wiaczeslaw Cyunczyk](https://tslava.dev)
