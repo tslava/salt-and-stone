@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.npm-cache/
+.browsers/
+artifacts/*-motion/
+.DS_Store
+.idea/
+artifacts/
